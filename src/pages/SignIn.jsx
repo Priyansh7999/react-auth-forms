@@ -28,7 +28,9 @@ export default function SignIn() {
             <InputField label="Email" type="email" name="email" />
             <InputField label="Password" type="password" name="password" />
             <div className="mt-4 flex justify-center">
-              <Button title="Sign In" type="submit" />
+              <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Sign In
+              </button>
             </div>
           </Form>
         </Formik>
