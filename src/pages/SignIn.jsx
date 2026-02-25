@@ -1,9 +1,38 @@
+import { Form, Formik } from 'formik'
 import React from 'react'
-
+import InputField from '../components/InputField'
+import Button from '../components/Button'
+import { SignInSchema } from '../schemas/signinSchema'
+import { useNavigate } from 'react-router-dom'
 export default function SignIn() {
+  const initialState = {
+    email: '',
+    password: ''
+  }
+  const navigate = useNavigate()
+
+  const handleSubmit = (values) => {
+    alert(`Email: ${values.email}\nPassword: ${values.password}`)
+    navigate('/')
+  }
   return (
-    <div>
-      
+    <div className='flex justify-center items-center h-screen'>
+      <div className='flex flex-col border border-gray-300 rounded-lg p-6 bg-white shadow-md'>
+        <h3 className='text-2xl font-bold mb-4 text-center'>Sign In</h3>
+        <Formik
+          initialValues={initialState}
+          validationSchema={SignInSchema}
+          onSubmit={handleSubmit}
+        >
+          <Form>
+            <InputField label="Email" type="email" name="email" />
+            <InputField label="Password" type="password" name="password" />
+            <div className="mt-4 flex justify-center">
+              <Button title="Sign In" type="submit" />
+            </div>
+          </Form>
+        </Formik>
+      </div>
     </div>
   )
 }
