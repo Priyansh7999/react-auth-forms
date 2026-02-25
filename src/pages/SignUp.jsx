@@ -37,6 +37,7 @@ export default function SignUp() {
             </div>
           </Form>
         </Formik>
+        <h2 className="mt-4 text-lg text-center text-gray-600">Already have an account? <span className='cursor-pointer text-blue-500' onClick={() => navigate('/sign-in')}>Sign In</span></h2>
       </div>
     </div>
   )
