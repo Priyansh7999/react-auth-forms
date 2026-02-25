@@ -1,10 +1,14 @@
 import { Form, Formik } from 'formik'
-import React from 'react'
+import React, { useContext } from 'react'
 import InputField from '../components/InputField'
 import Button from '../components/Button'
 import { SignInSchema } from '../schemas/signinSchema'
 import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../context/UserContext'
 export default function SignIn() {
+
+  const { user} = useContext(UserContext)
+  console.log(user)
   const initialState = {
     email: '',
     password: ''
@@ -12,8 +16,11 @@ export default function SignIn() {
   const navigate = useNavigate()
 
   const handleSubmit = (values) => {
-    alert(`Email: ${values.email}\nPassword: ${values.password}`)
-    navigate('/')
+    if(user && user.email === values.email && user.password === values.password) {
+      navigate('/')
+    } else {
+      alert('Invalid email or password. Please try again.')
+    }
   }
   return (
     <div className='flex flex-col justify-center items-center h-screen'>
