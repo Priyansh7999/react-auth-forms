@@ -1,10 +1,12 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import React from 'react'
+import React, { useContext } from 'react'
 import { SignupSchema } from '../schemas/signupSchema'
 import Button from '../components/Button'
 import InputField from '../components/InputField'
 import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../context/UserContext'
 export default function SignUp() {
+  const { setUser } = useContext(UserContext)
   const initialState = {
     name: '',
     email: '',
@@ -14,8 +16,9 @@ export default function SignUp() {
   const navigate = useNavigate()
 
   const handleSubmit = (values) => {
-    alert(`Name: ${values.name}\nEmail: ${values.email}\nPassword: ${values.password}\nConfirm Password: ${values.confirmPassword}`)
-    navigate('/')
+    const { name, email, password } = values
+    setUser({ name, email, password })
+    navigate('/sign-in')
   }
 
   return (
