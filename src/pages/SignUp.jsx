@@ -1,9 +1,43 @@
+import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
-
+import { SignupSchema } from '../schemas/signupSchema'
+import Button from '../components/Button'
+import InputField from '../components/InputField'
+import { useNavigate } from 'react-router-dom'
 export default function SignUp() {
+  const initialState = {
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  }
+  const navigate = useNavigate()
+
+  const handleSubmit = (values) => {
+    alert(`Name: ${values.name}\nEmail: ${values.email}\nPassword: ${values.password}\nConfirm Password: ${values.confirmPassword}`)
+    navigate('/')
+  }
+
   return (
-    <div>
-      
+    <div className='flex justify-center items-center h-screen'>
+      <div className='flex flex-col border border-gray-300 rounded-lg p-6 bg-white shadow-md'>
+        <h3 className='text-2xl font-bold mb-4 text-center'>Sign Up</h3>
+        <Formik
+          initialValues={initialState}
+          validationSchema={SignupSchema}
+          onSubmit={handleSubmit}
+        >
+          <Form>
+            <InputField label="Name" type="text" name="name" />
+            <InputField label="Email" type="email" name="email" />
+            <InputField label="Password" type="password" name="password" />
+            <InputField label="Confirm Password" type="password" name="confirmPassword" />
+            <div className="mt-4 flex justify-center">
+              <Button title="Sign Up" type="submit" />
+            </div>
+          </Form>
+        </Formik>
+      </div>
     </div>
   )
 }
