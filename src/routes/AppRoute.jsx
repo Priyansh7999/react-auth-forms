@@ -4,12 +4,15 @@ import HomePage from '../pages/HomePage'
 import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import PageNotFound from '../pages/PageNotFound'
+import ProtectedRoute from './ProtectedRoute'
 
 export default function AppRoute() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<HomePage />} />
+                <Route element={<ProtectedRoute />}>
+                    <Route path='/' element={<HomePage />} />
+                </Route>
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
                 <Route path='*' element={<PageNotFound />} />
