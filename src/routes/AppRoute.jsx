@@ -5,6 +5,7 @@ import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import PageNotFound from '../pages/PageNotFound'
 import ProtectedRoute from './ProtectedRoute'
+import CreateTicket from '../pages/CreateTicket'
 
 export default function AppRoute() {
     return (
@@ -12,6 +13,7 @@ export default function AppRoute() {
             <Routes>
                 <Route element={<ProtectedRoute />}>
                     <Route path='/' element={<HomePage />} />
+                    <Route path='/create-ticket' element={<CreateTicket />} />
                 </Route>
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
