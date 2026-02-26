@@ -1,12 +1,10 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik'
-import React, { useContext } from 'react'
-import { SignupSchema } from '../schemas/signupSchema'
-import Button from '../components/Button'
+import { Formik, Form } from 'formik'
+import React from 'react'
+import { SignupSchema } from '../schemas/SignupSchema'
 import InputField from '../components/InputField'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../context/UserContext'
 export default function SignUp() {
-  const { setUser } = useContext(UserContext)
+
   const initialState = {
     name: '',
     email: '',
@@ -15,15 +13,31 @@ export default function SignUp() {
   }
   const navigate = useNavigate()
 
-  const handleSubmit = (values) => {
-    const { name, email, password } = values
-    setUser({ name, email, password })
-    navigate('/sign-in')
-  }
+  const handleSubmit = async (values) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/auth/register`,{
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(values),
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        const message = data?.message;
+        alert(message);
+        return;
+      }
+      navigate('/sign-in');
+    } catch (err) {
+      console.error(err);
+      alert(err.message || 'An error occurred during registration');
+    }
+  };
 
   return (
-    <div className='flex justify-center items-center h-screen'>
-      <div className='flex flex-col border border-gray-300 rounded-lg p-6 bg-white shadow-md'>
+    <div className='flex justify-center items-center h-screen bg-gray-100'>
+      <div className='w-full max-w-md flex flex-col border border-gray-300 rounded-lg p-8 bg-white shadow-md'>
         <h3 className='text-2xl font-bold mb-4 text-center'>Sign Up</h3>
         <Formik
           initialValues={initialState}
@@ -35,8 +49,8 @@ export default function SignUp() {
             <InputField label="Email" type="email" name="email" />
             <InputField label="Password" type="password" name="password" />
             <InputField label="Confirm Password" type="password" name="confirmPassword" />
-            <div className="mt-4 flex justify-center">
-              <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <div className="mt-6">
+              <button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Sign Up
               </button>
             </div>
