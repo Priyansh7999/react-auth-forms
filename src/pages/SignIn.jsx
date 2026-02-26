@@ -1,30 +1,40 @@
 import { Form, Formik } from 'formik'
 import React, { useContext } from 'react'
 import InputField from '../components/InputField'
-import Button from '../components/Button'
 import { SignInSchema } from '../schemas/signinSchema'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../context/UserContext'
 export default function SignIn() {
-
-  const { user} = useContext(UserContext)
-  console.log(user)
   const initialState = {
     email: '',
     password: ''
   }
   const navigate = useNavigate()
 
-  const handleSubmit = (values) => {
-    if(user && user.email === values.email && user.password === values.password) {
+  const handleSubmit = async(values) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_SERVER_URL}/api/auth/login`,{
+        method:'POST',
+        headers:{'Content-type':'application/json'},
+        body : JSON.stringify(values)
+      })
+      const data = await response.json()
+      if(!response.ok){
+        const message = data?.message;
+        alert(message)
+        return;
+      }
+      localStorage.setItem('token', data?.data?.token)
+      console.log(data)
+      console.log(data?.data?.token)
       navigate('/')
-    } else {
-      alert('Invalid email or password. Please try again.')
+    } catch (error) {
+      console.log(error)
+      alert(error.message || 'An error occurred during login')
     }
   }
   return (
-    <div className='flex flex-col justify-center items-center h-screen'>
-      <div className='flex flex-col border border-gray-300 rounded-lg p-6 bg-white shadow-md'>
+   <div className='flex justify-center items-center h-screen bg-gray-100'>
+      <div className='w-full max-w-md flex flex-col border border-gray-300 rounded-lg p-8 bg-white shadow-md'>
         <h3 className='text-2xl font-bold mb-4 text-center'>Sign In</h3>
         <Formik
           initialValues={initialState}
@@ -35,7 +45,7 @@ export default function SignIn() {
             <InputField label="Email" type="email" name="email" />
             <InputField label="Password" type="password" name="password" />
             <div className="mt-4 flex justify-center">
-              <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              <button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Sign In
               </button>
             </div>
