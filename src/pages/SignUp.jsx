@@ -24,7 +24,7 @@ export default function SignUp() {
       );
       const data = await response.json();
       if (!response.ok) {
-        const message = data?.message || data?.error || response.statusText || 'Registration failed';
+        const message = data?.message;
         alert(message);
         return;
       }
