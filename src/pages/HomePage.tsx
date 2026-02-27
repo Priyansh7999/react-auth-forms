@@ -14,24 +14,8 @@ export default function HomePage() {
         navigate('/sign-in')
     }
     return (
-        <div className='flex flex-col'>
-            <div className='flex flex-col items-center p-2 gap-4'>
-                <h1 className='text-4xl font-bold'>Welcome to the Home Page!</h1>
-                <div>
-                    <Button title={"Create Ticket"} onClick={handleClick} />
-                </div>
-                <div>
-                    <Button title="Sign Out" onClick={handleSignOut} />
-                </div>
-            </div>
-            <div className={`absolute w-full bg-transparent ${modal ? 'block' : 'hidden'}`}>
-                {
-                    modal && (
-                        <div className='flex justify-center items-center'>
-                            <CreateTicketModel handleClose={handleClick} />
-                        </div>)
-                }
-            </div>
+        <div className='flex flex-col justify-center items-center p-2 gap-4 w-full h-full'>
+            <h1 className='text-4xl font-bold'>Welcome to the Home Page!</h1>
         </div>
     )
 }
