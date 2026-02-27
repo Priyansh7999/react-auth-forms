@@ -1,10 +1,10 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import HomePage from '../pages/HomePage'
-import SignIn from '../pages/SignIn'
-import SignUp from '../pages/SignUp'
-import PageNotFound from '../pages/PageNotFound'
-import ProtectedRoute from './ProtectedRoute'
+import HomePage from '../pages/HomePage.js'
+import SignIn from '../pages/SignIn.js'
+import SignUp from '../pages/SignUp.js'
+import PageNotFound from '../pages/PageNotFound.js'
+import ProtectedRoute from './ProtectedRoute.js'
 
 export default function AppRoute() {
     return (

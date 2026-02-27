@@ -1,4 +1,9 @@
-export const createTicket = async (values) => {
+
+type TicketValues = {
+    title: string,
+    description: string
+}
+export const createTicket = async (values: TicketValues) => {
     const response = await fetch(
         `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/tickets`,
         {
