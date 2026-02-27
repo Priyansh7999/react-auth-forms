@@ -3,6 +3,7 @@ import React from 'react'
 import { SignupSchema } from '../schemas/SignupSchema'
 import InputField from '../components/InputField'
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 export default function SignUp() {
 
   const initialState = {
@@ -25,13 +26,14 @@ export default function SignUp() {
       const data = await response.json();
       if (!response.ok) {
         const message = data?.message;
-        alert(message);
+        toast.error(message || 'Registration failed');
         return;
       }
+      toast.success('Registration successful! Please sign in.');
       navigate('/sign-in');
     } catch (err) {
       console.error(err);
-      alert(err.message || 'An error occurred during registration');
+      toast.error(err.message || 'An error occurred during registration');
     }
   };
 

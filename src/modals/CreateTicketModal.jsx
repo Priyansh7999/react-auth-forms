@@ -2,6 +2,7 @@ import { Form, Formik } from 'formik'
 import React from 'react'
 import { CreateTicketSchema } from '../schemas/CreateTicketSchema'
 import InputField from '../components/InputField'
+import toast from 'react-hot-toast'
 
 export default function CreateTicketModel({handleClose}) {
     const initialValues = {
@@ -21,13 +22,13 @@ export default function CreateTicketModel({handleClose}) {
             const data = await response.json()
             if (!response.ok) {
                 const message = data?.message;
-                alert(message)
+                toast.error(message || 'Failed to create ticket');
                 return;
             }
-            alert('Ticket created successfully')
+            toast.success('Ticket created successfully!');
         } catch (error) {
             console.log(error)
-            alert(error.message || 'An error occurred while creating the ticket')
+            toast.error(error.message || 'An error occurred while creating the ticket')
         }
     }
     return (

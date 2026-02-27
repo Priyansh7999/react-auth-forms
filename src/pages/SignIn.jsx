@@ -3,6 +3,7 @@ import React, { useContext } from 'react'
 import InputField from '../components/InputField'
 import { SignInSchema } from '../schemas/signinSchema'
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 export default function SignIn() {
   const initialState = {
     email: '',
@@ -20,16 +21,16 @@ export default function SignIn() {
       const data = await response.json()
       if(!response.ok){
         const message = data?.message;
-        alert(message)
+        toast.error(message || 'Login failed');
         return;
       }
       localStorage.setItem('token', data?.data?.token)
       console.log(data)
-      console.log(data?.data?.token)
+      toast.success('Login successful!')
       navigate('/')
     } catch (error) {
       console.log(error)
-      alert(error.message || 'An error occurred during login')
+      toast.error(error.message || 'An error occurred during login');
     }
   }
   return (

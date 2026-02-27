@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import Button from '../components/Button'
-import CreateTicketModel from '../models/CreateTicketModel'
+import CreateTicketModel from '../modals/CreateTicketModal'
 import { useNavigate } from 'react-router-dom'
 export default function HomePage() {
-    const [model, setModel] = useState(false)
+    const [modal, setModal] = useState(false)
     const navigate = useNavigate()
     const handleClick = () => {
-        setModel(!model)
+        setModal(!modal)
     }
     const handleSignOut = () => {        
         localStorage.removeItem('token')
@@ -25,7 +25,7 @@ export default function HomePage() {
             </div>
             <div className='absolute w-full bg-transparent'>
                 {
-                    model && (
+                    modal && (
                         <div className='flex justify-center items-center'> 
                             <CreateTicketModel handleClose={handleClick} />
                         </div>)
