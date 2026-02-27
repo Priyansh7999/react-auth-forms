@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import Button from '../components/Button.js'
-import CreateTicketModel from '../modals/CreateTicketModal.js'
 import { useNavigate } from 'react-router-dom'
 export default function HomePage() {
     const [modal, setModal] = useState(false)
