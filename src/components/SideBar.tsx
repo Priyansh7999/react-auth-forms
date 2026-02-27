@@ -1,19 +1,13 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 
-type MenuItem = {
-  name: string
-  path: string
-}
-
 export default function SideBar() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const menuList: MenuItem[] = [
+  const menuList = [
     { name: 'HOME', path: '/' },
     { name: 'Create Ticket', path: '/create-ticket' },
-    { name: 'View All Tickets', path: '/tickets' },
-    { name: 'My Tickets', path: '/tickets/:id' }
+    { name: 'View All Tickets', path: '/tickets' }
   ]
 
   return (

@@ -14,7 +14,7 @@ export default function ProtectedRoute() {
       <div className="w-1/5 h-full">
         <SideBar />
       </div>
-      <div className="flex-1 h-full overflow-y-auto p-6">
+      <div className="flex-1 h-full p-6">
         <Outlet />
       </div>
     </div>
