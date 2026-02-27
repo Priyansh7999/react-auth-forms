@@ -3,32 +3,21 @@ import React from 'react'
 import { CreateTicketSchema } from '../schemas/CreateTicketSchema'
 import InputField from '../components/InputField'
 import toast from 'react-hot-toast'
+import { createTicket } from '../services/ticketService'
 
-export default function CreateTicketModel({handleClose}) {
+export default function CreateTicketModel({ handleClose }) {
     const initialValues = {
         title: '',
         description: ''
     }
-    const handleSubmit = async (values) => {
+    const handleSubmit = async (values, { resetForm }) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_SERVER_URL}/api/tickets`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(values)
-            })
-            const data = await response.json()
-            if (!response.ok) {
-                const message = data?.message;
-                toast.error(message || 'Failed to create ticket');
-                return;
-            }
+            await createTicket(values);
             toast.success('Ticket created successfully!');
+            resetForm();
+            handleClose();
         } catch (error) {
-            console.log(error)
-            toast.error(error.message || 'An error occurred while creating the ticket')
+            toast.error(error.message);
         }
     }
     return (
