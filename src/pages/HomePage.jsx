@@ -22,7 +22,7 @@ export default function HomePage() {
     
     return (
         <div className='flex flex-col'>
-            <div className='flex flex-col items-center p-2 h-screen gap-4'>
+            <div className='flex flex-col items-center p-2 gap-4'>
                 <h1 className='text-4xl font-bold'>Welcome to the Home Page!</h1>
                 <div>
                     <Button title={"Create Ticket"} onClick={handleClick} />
@@ -31,7 +31,7 @@ export default function HomePage() {
                     <Button title="Sign Out" onClick={handleSignOut} />
                 </div>
             </div>
-            <div>
+            <div className='p-4'>
                 {
                     tickets.map((ticket, idx) => (
                         <div
