@@ -4,11 +4,8 @@ import { createTicket } from '../services/ticketService.js'
 import { toast } from 'react-hot-toast'
 import { CreateTicketSchema } from '../schemas/CreateTicketSchema.js'
 import InputField from '../components/InputField.js'
+import type { CreateTicketValues } from '../types/createTicket.js'
 
-type CreateTicketValues = {
-    title: string
-    description: string
-}
 
 export default function CreateTicket() {
     const initialValues: CreateTicketValues = {
@@ -42,7 +39,7 @@ export default function CreateTicket() {
                     Create Ticket
                 </h3>
 
-                <Formik<CreateTicketValues>
+                <Formik
                     initialValues={initialValues}
                     validationSchema={CreateTicketSchema}
                     onSubmit={handleSubmit}
