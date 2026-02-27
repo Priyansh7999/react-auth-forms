@@ -5,19 +5,20 @@ import InputField from '../components/InputField'
 import toast from 'react-hot-toast'
 import { createTicket } from '../services/ticketService'
 
-export default function CreateTicketModel({ handleClose }) {
+export default function CreateTicketModel({ handleClose, onTicketCreated }) {
     const initialValues = {
         title: '',
         description: ''
     }
     const handleSubmit = async (values, { resetForm }) => {
         try {
-            await createTicket(values);
-            toast.success('Ticket created successfully!');
-            resetForm();
-            handleClose();
+            const newTicket = await createTicket(values) 
+            toast.success('Ticket created successfully!')
+            resetForm()
+            onTicketCreated(newTicket)
+            handleClose()
         } catch (error) {
-            toast.error(error.message);
+            toast.error(error?.message ?? 'Something went wrong')
         }
     }
     return (
