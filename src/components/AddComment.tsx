@@ -1,12 +1,12 @@
 import React from "react";
-import type { AddCommentProps, AddCommentFormValues, } from "../types/ticketComments.ts";
+import type { CommentProps, AddCommentFormValues, } from "../types/ticketComments.ts";
 import { Form, Formik, type FormikHelpers } from "formik";
 import { AddCommentSchema } from "../schemas/AddCommentSchema.tsx";
 import InputField from "./InputField.tsx";
 import { addComment } from "../services/commentService.ts";
 import { toast } from "react-hot-toast";
 
-export default function AddComment({ ticketId }: AddCommentProps) {
+export default function AddComment({ ticketId }: CommentProps) {
     const initialValues = {
         body: "",
     };

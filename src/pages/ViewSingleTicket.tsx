@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 import { viewSingleTicket } from '../services/ticketService.ts';
 import type { GetTicketData } from '../types/viewTickets.ts';
 import AddComment from '../components/AddComment.tsx';
+import ViewComments from '../components/ViewComments.tsx';
 export default function ViewSingleTicket() {
   const { id } = useParams<string>();
   const [ticket, setTicket] = useState<GetTicketData>();
@@ -76,6 +77,7 @@ export default function ViewSingleTicket() {
           Comments
         </h1>
           <AddComment ticketId={id} />
+          <ViewComments ticketId={id} />
       </div>
     </div>
   )
