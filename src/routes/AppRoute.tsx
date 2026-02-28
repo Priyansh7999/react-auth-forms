@@ -7,6 +7,7 @@ import PageNotFound from '../pages/PageNotFound.js'
 import ProtectedRoute from './ProtectedRoute.js'
 import CreateTicket from '../pages/CreateTicket.js'
 import ViewAllTickets from '../pages/ViewAllTickets.js'
+import ViewSingleTicket from '../pages/ViewSingleTicket.tsx'
 
 export default function AppRoute() {
     return (
@@ -16,6 +17,7 @@ export default function AppRoute() {
                     <Route path='/' element={<HomePage />} />
                     <Route path='/create-ticket' element={<CreateTicket />} />
                     <Route path="/tickets" element={<ViewAllTickets/>} />
+                    <Route path="/tickets/:id" element={<ViewSingleTicket/>} />
                 </Route>
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
