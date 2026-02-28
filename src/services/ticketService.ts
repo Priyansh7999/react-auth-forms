@@ -1,5 +1,15 @@
 import type { CreateTicketValues } from "../types/createTicket.js";
+const getAuthHeader = () => {
+  const token = localStorage.getItem("token");
 
+  if (!token) {
+    throw new Error("User not authenticated");
+  }
+
+  return {
+    Authorization: `Bearer ${token}`,
+  };
+};
 export const createTicket = async (values: CreateTicketValues) => {
     const response = await fetch(
         `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/tickets`,
@@ -7,7 +17,7 @@ export const createTicket = async (values: CreateTicketValues) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                ...getAuthHeader()
             },
             body: JSON.stringify(values)
         }
@@ -24,7 +34,7 @@ export const viewAllTickets = async()=>{
         {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                ...getAuthHeader()
             }
         }
     );
