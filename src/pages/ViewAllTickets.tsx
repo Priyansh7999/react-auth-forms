@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import type { GetTicketData } from '../types/viewTickets.js'
 import { viewAllTickets } from '../services/ticketService.js'
 import { toast } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 export default function ViewAllTickets() {
   const [tickets, setTickets] = useState<GetTicketData[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -25,6 +27,9 @@ export default function ViewAllTickets() {
 
     fetchTickets()
   }, [])
+  const handleTicketClick=(id: string)=>{
+    navigate(`/tickets/${id}`)
+  }
 
   if (isLoading) return <p className="text-center">Loading...</p>
 
@@ -47,7 +52,7 @@ export default function ViewAllTickets() {
 
         <tbody>
           {tickets.map((ticket) => (
-            <tr key={ticket.id} className="hover:bg-gray-50">
+            <tr key={ticket.id} className="hover:bg-gray-50 cursor-pointer" onClick={()=>handleTicketClick(ticket.id)}>
               <td className="px-4 py-2 border-b">{ticket.title}</td>
               <td className="px-4 py-2 border-b">{ticket.description}</td>
               <td className="px-4 py-2 border-b">{ticket.status}</td>
