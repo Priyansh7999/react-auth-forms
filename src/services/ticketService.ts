@@ -47,3 +47,22 @@ export const viewAllTickets = async()=>{
 
     return data;
 }
+export const viewSingleTicket=async(id:string)=>{
+    const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/tickets/${id}`,
+        {
+            method: 'GET',
+            headers: {
+                ...getAuthHeader()
+            }
+        }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data?.message || 'Failed to create ticket');
+    }
+
+    return data;
+}
