@@ -1,48 +1,28 @@
 import { Form, Formik } from 'formik'
 import { useNavigate } from 'react-router-dom'
-import {toast} from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import { SignInSchema } from '../schemas/SignInSchema.js'
 import InputField from '../components/InputField.js'
+import { loginUser } from '../services/userService.js'
+import type { LoginDetails } from '../types/auth.js'
 
-type SignInValues = {
-  email: string
-  password: string
-}
 
 export default function SignIn() {
   const navigate = useNavigate()
 
-  const initialState: SignInValues = {
+  const initialState = {
     email: '',
     password: ''
   }
 
-  const handleSubmit = async (values: SignInValues) => {
+  const handleSubmit = async (values: LoginDetails) => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/auth/login`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(values)
-        }
-      )
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        const message = (data?.message as string) || 'Login failed'
-        toast.error(message)
-        return
-      }
-
-      localStorage.setItem('token', data?.data?.token as string)
-
-      toast.success('Login successful!')
+      await loginUser(values);
+      toast.success('Login successfully!')
       navigate('/')
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        toast.error(error.message)
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        toast.error(err.message)
       } else {
         toast.error('An error occurred during login')
       }
@@ -54,7 +34,7 @@ export default function SignIn() {
       <div className="w-full max-w-md flex flex-col border border-gray-300 rounded-lg p-8 bg-white shadow-md">
         <h3 className="text-2xl font-bold mb-4 text-center">Sign In</h3>
 
-        <Formik<SignInValues>
+        <Formik<LoginDetails>
           initialValues={initialState}
           validationSchema={SignInSchema}
           onSubmit={handleSubmit}

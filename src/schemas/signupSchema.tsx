@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 export const SignupSchema = Yup.object({
   name: Yup.string().min(3).required("Name is required").trim(),
-  email: Yup.string().email("Invalid email").required("Email is required"),
+  email: Yup.string().email("Invalid email").required("Email is required").trim().lowercase(),
   password: Yup.string()
     .min(8, "Minimum 8 characters")
     .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).*$/,

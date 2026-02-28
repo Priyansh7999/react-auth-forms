@@ -1,45 +1,27 @@
 import { Formik, Form } from 'formik'
 import { useNavigate } from 'react-router-dom'
-import {toast} from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import InputField from '../components/InputField.js'
 import { SignupSchema } from '../schemas/signupSchema.js'
+import { registerUser } from '../services/userService.js'
+import type { RegistrationDetails } from '../types/auth.js'
 
-type SignUpValues = {
-  name: string
-  email: string
-  password: string
-  confirmPassword: string
-}
+
 
 export default function SignUp() {
   const navigate = useNavigate()
 
-  const initialState: SignUpValues = {
+  const initialState = {
     name: '',
     email: '',
     password: '',
     confirmPassword: ''
   }
 
-  const handleSubmit = async (values: SignUpValues) => {
+  const handleSubmit = async (values: RegistrationDetails) => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/auth/register`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(values),
-        }
-      )
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        const message = data?.message as string | undefined
-        toast.error(message || 'Registration failed')
-        return
-      }
-
+      const { name, email, password } = values;
+      await registerUser({name,email,password});
       toast.success('Registration successful! Please sign in.')
       navigate('/sign-in')
     } catch (err: unknown) {
@@ -56,7 +38,7 @@ export default function SignUp() {
       <div className="w-full max-w-md flex flex-col border border-gray-300 rounded-lg p-8 bg-white shadow-md">
         <h3 className="text-2xl font-bold mb-4 text-center">Sign Up</h3>
 
-        <Formik<SignUpValues>
+        <Formik<RegistrationDetails>
           initialValues={initialState}
           validationSchema={SignupSchema}
           onSubmit={handleSubmit}
