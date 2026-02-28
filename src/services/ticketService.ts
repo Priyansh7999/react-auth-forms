@@ -1,9 +1,6 @@
+import type { CreateTicketValues } from "../types/createTicket.js";
 
-type TicketValues = {
-    title: string,
-    description: string
-}
-export const createTicket = async (values: TicketValues) => {
+export const createTicket = async (values: CreateTicketValues) => {
     const response = await fetch(
         `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/tickets`,
         {
@@ -15,13 +12,10 @@ export const createTicket = async (values: TicketValues) => {
             body: JSON.stringify(values)
         }
     );
-
     const data = await response.json();
-
     if (!response.ok) {
         throw new Error(data?.message || 'Failed to create ticket');
     }
-
     return data;
 };
 export const viewAllTickets = async()=>{

@@ -8,7 +8,7 @@ import type { CreateTicketValues } from '../types/createTicket.js'
 
 
 export default function CreateTicket() {
-    const initialValues: CreateTicketValues = {
+    const initialValues={
         title: '',
         description: ''
     }

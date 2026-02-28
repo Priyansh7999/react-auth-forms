@@ -1,27 +1,33 @@
-import api from "../api/axiosInstance.js";
 import type { LoginDetails, RegistrationDetails } from "../types/auth.js";
 
-
 export const registerUser = async (values: RegistrationDetails) => {
-  try {
-    const response = await api.post("/api/auth/register", values);
-    return response.data;
-  } catch (error: any) {
-    throw new Error(
-      error.response?.data?.message || "Registration failed"
-    );
-  }
-};
-
+    const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/auth/register`,
+        {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(values),
+        }
+    )
+    const data = await response.json()
+    if (!response.ok) {
+        throw new Error(data?.message || 'Registration failed');
+    }
+    return data;
+}
 export const loginUser = async (values: LoginDetails) => {
-  try {
-    const response = await api.post("/api/auth/login", values);
-    const token = response.data.data.token;
-    localStorage.setItem("token", token);
-    return response.data.data;
-  } catch (error: any) {
-    throw new Error(
-      error.response?.data?.message || "Login failed"
-    );
+  const response = await fetch(`${import.meta.env.VITE_BACKEND_SERVER_URL}/api/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(values),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data?.message || "Login failed");
   }
+  const token = data.data.token;
+  localStorage.setItem("token", token);
+  return data.data;
 };
