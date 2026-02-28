@@ -6,13 +6,14 @@ import InputField from "./InputField.tsx";
 import { addComment } from "../services/commentService.ts";
 import { toast } from "react-hot-toast";
 
-export default function AddComment({ ticketId }: CommentProps) {
+export default function AddComment({ ticketId, onCommentAdd }: CommentProps) {
     const initialValues = {
         body: "",
     };
     const handleSubmit = async (values: AddCommentFormValues, { resetForm }: FormikHelpers<AddCommentFormValues>) => {
         try {
             await addComment(ticketId, values);
+            onCommentAdd();
             toast.success("Comment added successfully!");
             resetForm();
         } catch (error: unknown) {
