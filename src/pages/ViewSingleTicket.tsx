@@ -7,6 +7,7 @@ import AddComment from '../components/AddComment.tsx';
 import ViewComments from '../components/ViewComments.tsx';
 import { viewAllComments } from '../services/commentService.ts';
 import type { ViewCommentValues } from '../types/ticketComments.ts';
+import { getRole } from '../utils/auth.ts';
 export default function ViewSingleTicket() {
   const { id } = useParams<string>();
   const [ticket, setTicket] = useState<GetTicketData>();
@@ -42,9 +43,9 @@ export default function ViewSingleTicket() {
       }
     }
   };
-  useEffect(()=>{
+  useEffect(() => {
     fetchComments();
-  },[id])
+  }, [id])
   if (error || !id) return <div className='flex h-screen justify-center items-center'>You do not have permission to access this ticket</div>
   return (
     <div className="flex flex-col justify-center">
@@ -74,13 +75,13 @@ export default function ViewSingleTicket() {
               <p className="text-sm text-gray-500">Status</p>
               {ticket?.status}
             </div>
-            <div>
-              <p className="text-sm text-gray-500">Assigned Agent</p>
-              <p className="mt-1 font-medium">
-                {ticket?.agentName || "Not Assigned"}
-              </p>
-            </div>
-
+            {
+              getRole() == 'CUSTOMER' &&
+              <div>
+                <p className="text-sm text-gray-500">Assigned Agent</p>
+                <p className="mt-1 font-medium">{ticket?.agentName || "Not Assigned"}</p>
+              </div>
+            }
           </div>
 
           <div>

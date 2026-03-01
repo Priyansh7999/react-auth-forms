@@ -3,6 +3,7 @@ import type { GetTicketData } from '../types/viewTickets.js'
 import { viewAllTickets } from '../services/ticketService.js'
 import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import { getRole } from '../utils/auth.ts'
 
 export default function ViewAllTickets() {
   const [tickets, setTickets] = useState<GetTicketData[]>([])
@@ -27,8 +28,11 @@ export default function ViewAllTickets() {
 
     fetchTickets()
   }, [])
+  console.log(tickets)
   const handleTicketClick=(id: string)=>{
-    navigate(`/customer/tickets/${id}`)
+    getRole()=='CUSTOMER' ? 
+      navigate(`/customer/tickets/${id}`) :  
+      navigate(`/agent/tickets/${id}`)
   }
 
   if (isLoading) return <p className="text-center">Loading...</p>
@@ -45,7 +49,9 @@ export default function ViewAllTickets() {
             <th className="px-4 py-2 text-left border-b">Title</th>
             <th className="px-4 py-2 text-left border-b">Description</th>
             <th className="px-4 py-2 text-left border-b">Status</th>
-            <th className="px-4 py-2 text-left border-b">Agent</th>
+            {
+                getRole() == 'CUSTOMER' &&  <th className="px-4 py-2 text-left border-b">Agent</th>          
+            }
             <th className="px-4 py-2 text-left border-b">Created At</th>
           </tr>
         </thead>
@@ -56,7 +62,9 @@ export default function ViewAllTickets() {
               <td className="px-4 py-2 border-b">{ticket.title}</td>
               <td className="px-4 py-2 border-b">{ticket.description}</td>
               <td className="px-4 py-2 border-b">{ticket.status}</td>
-              <td className="px-4 py-2 border-b">{ticket.agentName}</td>
+              {
+                getRole() == 'CUSTOMER' &&  <td className="px-4 py-2 border-b">{ticket.agentName}</td>            
+              }
               <td className="px-4 py-2 border-b">
                 {new Date(ticket.createdAt).toLocaleDateString()}
               </td>
