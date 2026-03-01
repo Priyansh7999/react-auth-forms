@@ -1,14 +1,18 @@
 import { useNavigate, useLocation } from 'react-router-dom'
+import { getUserRole } from '../utils/auth.ts'
 
 export default function SideBar() {
   const navigate = useNavigate()
   const location = useLocation()
+  const role = getUserRole();
 
-  const menuList = [
-    { name: 'HOME', path: '/' },
-    { name: 'Create Ticket', path: '/create-ticket' },
-    { name: 'View All Tickets', path: '/tickets' }
-  ]
+  const menuList = role === 'CUSTOMER'
+    ? [
+      { name: 'HOME', path: '/customer' },
+      { name: 'Create Ticket', path: '/customer/create-ticket' },
+      { name: 'View All Tickets', path: '/customer/tickets' }
+    ]
+      : [];
 
   return (
     <div className="h-screen shadow-md p-5">
@@ -27,9 +31,8 @@ export default function SideBar() {
               <div
                 key={item.path}
                 onClick={() => navigate(item.path)}
-                className={`flex gap-5 p-2 items-center hover:bg-slate-200 rounded-lg cursor-pointer ${
-                  isActive ? 'bg-slate-200' : ''
-                }`}
+                className={`flex gap-5 p-2 items-center hover:bg-slate-200 rounded-lg cursor-pointer ${isActive ? 'bg-slate-200' : ''
+                  }`}
               >
                 <h2>{item.name}</h2>
               </div>
