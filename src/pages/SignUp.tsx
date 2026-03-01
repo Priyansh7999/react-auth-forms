@@ -49,7 +49,7 @@ export default function SignUp() {
             <InputField label="Password" type="password" name="password" />
             <InputField label="Confirm Password" type="password" name="confirmPassword" />
 
-            <div className="mt-6">
+            <div className="mt-6 text-center">
               <button
                 type="submit"
                 className="font-sans bg-black hover:bg-gray-800 text-white py-2 px-4 rounded"
