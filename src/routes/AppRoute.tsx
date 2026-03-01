@@ -8,7 +8,6 @@ import ProtectedRoute from './ProtectedRoute.js'
 import CreateTicket from '../pages/CreateTicket.js'
 import ViewAllTickets from '../pages/ViewAllTickets.js'
 import ViewSingleTicket from '../pages/ViewSingleTicket.tsx'
-import ReassignTicket from '../pages/ReassignTicket.tsx'
 
 export default function AppRoute() {
     return (
@@ -25,7 +24,6 @@ export default function AppRoute() {
                     <Route path="/agent/assign-ticket" element={<CreateTicket />} />
                     <Route path="/agent/tickets" element={<ViewAllTickets />} />
                     <Route path="/agent/tickets/:id" element={<ViewSingleTicket />} />
-                    <Route path="/agent/tickets/:ticketId/reassign-ticket" element={<ReassignTicket />} />
                 </Route>
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />

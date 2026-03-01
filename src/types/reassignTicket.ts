@@ -7,3 +7,8 @@ export type GetAllAgents={
 export type ReassignTicketValues={
     agentId:string,
 }
+export type ReassignTicketModalProp={
+    isOpen: boolean
+    onClose: () => void
+    ticketId: string
+}
