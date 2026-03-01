@@ -7,3 +7,6 @@ export type GetTicketData={
   agentName: string,
   status: string,
 }
+export type TicketCardProps ={
+  ticketDetails?: GetTicketData;
+}

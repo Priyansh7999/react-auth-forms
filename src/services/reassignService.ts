@@ -1,5 +1,6 @@
 import type { ReassignTicketValues } from "../types/reassignTicket.ts";
 import { getToken } from "../utils/auth.ts";
+import { getUserDetails } from "./userService.ts";
 const getAuthHeader = () => {
   const token = getToken();
 
@@ -14,22 +15,6 @@ const getAuthHeader = () => {
 export const getAllAgentsList=async()=>{
     const response = await fetch(
         `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/users?role=SUPPORT_AGENT`,
-        {
-            method: 'GET',
-            headers: {
-                ...getAuthHeader()
-            }
-        }
-    );
-    const data = await response.json();
-    if (!response.ok) {
-        throw new Error(data?.message || 'Failed to create ticket');
-    }
-    return data;
-}
-export const getUserDetails=async()=>{
-    const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/users/me`,
         {
             method: 'GET',
             headers: {

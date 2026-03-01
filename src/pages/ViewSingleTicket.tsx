@@ -58,7 +58,7 @@ export default function ViewSingleTicket() {
         </h1>
         <div className='flex gap-4 justify-center items-center'>
           {
-            ticket?.status !== 'CLOSED' || getRole()!="CUSTOMER"
+            ticket?.status !== 'CLOSED' && getRole()!="CUSTOMER"
             && <Button title='Assign Ticket to other' onClick={() => setOpenModal(true)} />
           }
           <ReassignTicketModal

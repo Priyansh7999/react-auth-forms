@@ -1,4 +1,5 @@
 import type { LoginDetails, RegistrationDetails } from "../types/auth.js";
+import { getToken } from "../utils/auth.ts";
 
 export const registerUser = async (values: RegistrationDetails) => {
     const response = await fetch(
@@ -32,3 +33,20 @@ export const loginUser = async (values: LoginDetails) => {
   localStorage.setItem("role",data?.data?.role);
   return data.data;
 };
+export const getUserDetails=async()=>{
+  const token=getToken()
+    const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/users/me`,
+        {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }
+        }
+    );
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data?.message || 'Failed to create ticket');
+    }
+    return data;
+}
