@@ -19,6 +19,12 @@ export default function AppRoute() {
                     <Route path="/customer/tickets" element={<ViewAllTickets />} />
                     <Route path="/customer/tickets/:id" element={<ViewSingleTicket />} />
                 </Route>
+                <Route element={<ProtectedRoute allowedRole="SUPPORT_AGENT" />}>
+                    <Route path="/agent" element={<HomePage />} />
+                    <Route path="/agent/assign-ticket" element={<CreateTicket />} />
+                    <Route path="/agent/tickets" element={<ViewAllTickets />} />
+                    <Route path="/agent/tickets/:id" element={<ViewSingleTicket />} />
+                </Route>
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
                 <Route path='*' element={<PageNotFound />} />

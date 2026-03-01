@@ -4,7 +4,7 @@ import SideBar from "../components/SideBar.tsx";
 import { getRole } from "../utils/auth.ts";
 
 type ProtectedRouteProps = {
-  allowedRole: "CUSTOMER" | "AGENT";
+  allowedRole: "CUSTOMER" | "SUPPORT_AGENT";
 }
 
 export default function ProtectedRoute({ allowedRole }: ProtectedRouteProps) {
