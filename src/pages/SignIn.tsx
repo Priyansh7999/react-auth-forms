@@ -5,6 +5,7 @@ import { SignInSchema } from '../schemas/SignInSchema.js'
 import InputField from '../components/InputField.js'
 import { loginUser } from '../services/userService.js'
 import type { LoginDetails } from '../types/auth.js'
+import { getUserRole } from '../utils/auth.ts'
 
 
 export default function SignIn() {
@@ -19,7 +20,15 @@ export default function SignIn() {
     try {
       await loginUser(values);
       toast.success('Login successfully!')
-      navigate('/')
+      const role = getUserRole();
+
+      if (role === 'CUSTOMER') {
+        navigate('/customer');
+      } else if (role === 'AGENT') {
+        navigate('/agent'); 
+      } else {
+        navigate('/sign-in');
+      }
     } catch (err: unknown) {
       if (err instanceof Error) {
         toast.error(err.message)
