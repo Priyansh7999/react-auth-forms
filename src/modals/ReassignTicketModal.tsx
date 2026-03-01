@@ -4,7 +4,7 @@ import { getAllAgentsList, reassignTicket } from '../services/reassignService.ts
 import { toast } from 'react-hot-toast'
 import { Field, Form, Formik } from 'formik'
 import { ReassignTicketSchema } from '../schemas/ReassignTicketSchema.tsx'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function ReassignTicketModal({ isOpen, onClose, ticketId }: ReassignTicketModalProp) {
     const [allAgents, setAllAgents] = useState<GetAllAgents[]>([])

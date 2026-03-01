@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import type { CommentProps, ViewCommentsProps, ViewCommentValues } from "../types/ticketComments.ts";
-import { viewAllComments } from "../services/commentService.ts";
+import type { ViewCommentsProps } from "../types/ticketComments.ts";
 
 export default function ViewComments({ comments }: ViewCommentsProps) {
 

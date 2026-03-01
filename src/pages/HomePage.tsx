@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import Button from '../components/Button.js'
 import { useNavigate } from 'react-router-dom'
 export default function HomePage() {

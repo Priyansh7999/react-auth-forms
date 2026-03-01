@@ -1,6 +1,6 @@
 import React from 'react'
 import { getRole } from '../utils/auth.ts'
-import type { GetTicketData, TicketCardProps } from '../types/viewTickets.ts'
+import type { TicketCardProps } from '../types/viewTickets.ts'
 
 export default function TicketCard({ ticketDetails }: TicketCardProps) {
   return (

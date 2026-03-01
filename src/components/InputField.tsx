@@ -1,10 +1,7 @@
 import { Field, ErrorMessage } from 'formik'
-type InputFieldProps = {
-    label: string,
-    type: string,
-    name: string
-}
-export default function InputField({ label, type, name }: InputFieldProps) {
+import type { FormInputFieldProps } from '../types/auth.ts'
+
+export default function InputField({ label, type, name }: FormInputFieldProps) {
   return (
     <div className="mb-4 w-full flex flex-col">
       <label className='mb-2 text-lg font-medium' htmlFor={name}>{label}</label>
