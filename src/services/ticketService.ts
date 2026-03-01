@@ -1,6 +1,7 @@
 import type { CreateTicketValues } from "../types/createTicket.js";
+import { getToken } from "../utils/auth.ts";
 const getAuthHeader = () => {
-  const token = localStorage.getItem("token");
+  const token = getToken();
 
   if (!token) {
     throw new Error("User not authenticated");

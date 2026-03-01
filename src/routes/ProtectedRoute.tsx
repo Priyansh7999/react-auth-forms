@@ -1,14 +1,14 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { getUserRole } from "../utils/auth.ts";
 import SideBar from "../components/SideBar.tsx";
+import { getRole } from "../utils/auth.ts";
 
 type ProtectedRouteProps = {
   allowedRole: "CUSTOMER" | "AGENT";
 }
 
 export default function ProtectedRoute({ allowedRole }: ProtectedRouteProps) {
-  const role = getUserRole();
+  const role = getRole();
 
   if (!role || role !== allowedRole) 
     return <Navigate to="/sign-in" replace />;

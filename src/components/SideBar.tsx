@@ -1,10 +1,10 @@
 import { useNavigate, useLocation } from 'react-router-dom'
-import { getUserRole } from '../utils/auth.ts'
+import { getRole } from '../utils/auth.ts';
 
 export default function SideBar() {
   const navigate = useNavigate()
   const location = useLocation()
-  const role = getUserRole();
+  const role = getRole();
 
   const menuList = role === 'CUSTOMER'
     ? [

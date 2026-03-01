@@ -29,5 +29,6 @@ export const loginUser = async (values: LoginDetails) => {
   }
   const token = data.data.token;
   localStorage.setItem("token", token);
+  localStorage.setItem("role",data?.data?.role);
   return data.data;
 };

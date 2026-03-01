@@ -28,7 +28,7 @@ export default function ViewAllTickets() {
     fetchTickets()
   }, [])
   const handleTicketClick=(id: string)=>{
-    navigate(`/tickets/${id}`)
+    navigate(`/customer/tickets/${id}`)
   }
 
   if (isLoading) return <p className="text-center">Loading...</p>

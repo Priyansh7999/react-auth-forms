@@ -1,7 +1,8 @@
 import type { AddCommentFormValues } from "../types/ticketComments.ts";
+import { getToken } from "../utils/auth.ts";
 
 const getAuthHeader = () => {
-  const token = localStorage.getItem("token");
+  const token = getToken();
   if (!token) {
     throw new Error("User not authenticated");
   }
