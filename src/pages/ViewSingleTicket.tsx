@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-hot-toast';
 import { viewSingleTicket } from '../services/ticketService.ts';
 import type { GetTicketData } from '../types/viewTickets.ts';
@@ -8,11 +8,13 @@ import ViewComments from '../components/ViewComments.tsx';
 import { viewAllComments } from '../services/commentService.ts';
 import type { ViewCommentValues } from '../types/ticketComments.ts';
 import { getRole } from '../utils/auth.ts';
+import Button from '../components/Button.tsx';
+import ReassignTicketModal from '../modals/ReassignTicketModal.tsx';
 export default function ViewSingleTicket() {
   const { id } = useParams<string>();
   const [ticket, setTicket] = useState<GetTicketData>();
   const [comments, setComments] = useState<ViewCommentValues[]>([]);
-
+  const [openModal, setOpenModal] = useState(false)
   const [error, setError] = useState<Error>()
   useEffect(() => {
     const fetchTicket = async () => {
@@ -53,7 +55,17 @@ export default function ViewSingleTicket() {
         <h1 className="text-3xl font-bold mb-6 border-b pb-4">
           Ticket Details
         </h1>
-
+        <div className='flex gap-4 justify-center items-center'>
+          {
+            ticket?.status !== 'CLOSED'
+            && <Button title='Assign Ticket to other' onClick={() => setOpenModal(true)} />
+          }
+          <ReassignTicketModal
+            isOpen={openModal}
+            onClose={() => setOpenModal(false)}
+            ticketId={ticket?.id!}
+          />
+        </div>
         <div className="space-y-6">
 
           <div>
@@ -97,7 +109,9 @@ export default function ViewSingleTicket() {
         <h1 className="text-2xl font-bold mb-6 border-b pb-4">
           Comments
         </h1>
-        <AddComment ticketId={id} onCommentAdd={fetchComments} />
+        {
+          ticket?.status != 'CLOSED' && <AddComment ticketId={id} onCommentAdd={fetchComments} />
+        }
         <ViewComments comments={comments} />
       </div>
     </div>
