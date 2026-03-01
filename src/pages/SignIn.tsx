@@ -22,13 +22,11 @@ export default function SignIn() {
       toast.success('Login successfully!')
       const role = getRole();
 
-      if (role === 'CUSTOMER') {
-        navigate('/customer');
-      } else if (role === 'AGENT') {
-        navigate('/agent'); 
-      } else {
-        navigate('/sign-in');
-      }
+      navigate(
+        role === "CUSTOMER" ? "/customer" :
+          role === "SUPPORT_AGENT" ? "/agent" :
+            "/sign-in"
+      );
     } catch (err: unknown) {
       if (err instanceof Error) {
         toast.error(err.message)
