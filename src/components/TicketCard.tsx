@@ -25,14 +25,19 @@ export default function TicketCard({ ticketDetails }: TicketCardProps) {
           {ticketDetails?.status}
         </div>
 
-        {getRole() === 'CUSTOMER' && (
+        {getRole() === 'CUSTOMER' ? (
           <div>
             <p className="text-sm text-gray-500">Assigned Agent</p>
             <p className="mt-1 font-medium">
-              {ticketDetails?.agentName || "Not Assigned"}
+              {ticketDetails?.agentName}
             </p>
           </div>
-        )}
+        ): <div>
+            <p className="text-sm text-gray-500">Priority</p>
+            <p className="mt-1 font-medium">
+              {ticketDetails?.priority}
+            </p>
+          </div>}
       </div>
 
       <div>
