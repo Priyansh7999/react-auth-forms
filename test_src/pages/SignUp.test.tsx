@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import { vi } from 'vitest'
 import { MemoryRouter } from "react-router-dom"
 import SignUp from "../../src/pages/SignUp.tsx"
-import userEvent from '@testing-library/user-event'
+import {userEvent} from '@testing-library/user-event'
 import { registerUser } from '../../src/services/userService.ts'
 import { toast } from 'react-hot-toast'
 
@@ -139,7 +139,7 @@ describe('Sign Up Page', () => {
         const user = userEvent.setup();
         (registerUser as any).mockRejectedValue(new Error('Email already exists'))
         renderSignUp()
-        
+
         await user.type(screen.getByLabelText('Name'), 'Priyansh Saxena')
         await user.type(screen.getByLabelText('Email'), 'priyansh@gmail.com')
         await user.type(screen.getByLabelText('Password'), 'Priyansh@123')
