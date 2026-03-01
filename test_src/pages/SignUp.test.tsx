@@ -121,7 +121,7 @@ describe('Sign Up Page', () => {
         expect(mockNavigate).toHaveBeenCalledWith('/sign-in')
     })
 
-    test('should show error toast when API fails', async () => {
+    test('shouldShowErrorToastWhenAPIfails', async () => {
         const user = userEvent.setup();
         (registerUser as any).mockRejectedValue(new Error('Email already exists'))
         renderSignUp()
@@ -136,7 +136,7 @@ describe('Sign Up Page', () => {
         })
     })
 
-    test('should show generic error toast when unknown error occurs', async () => {
+    test('shouldShowGenericErrorToastWhenUnknownErrorOccurs', async () => {
         const user = userEvent.setup();
         (registerUser as any).mockRejectedValue('something went wrong')
         renderSignUp()
