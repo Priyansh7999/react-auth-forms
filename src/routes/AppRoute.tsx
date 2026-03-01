@@ -13,11 +13,11 @@ export default function AppRoute() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route element={<ProtectedRoute />}>
-                    <Route path='/' element={<HomePage />} />
-                    <Route path='/create-ticket' element={<CreateTicket />} />
-                    <Route path="/tickets" element={<ViewAllTickets/>} />
-                    <Route path="/tickets/:id" element={<ViewSingleTicket/>} />
+                <Route element={<ProtectedRoute allowedRole="CUSTOMER" />}>
+                    <Route path="/customer" element={<HomePage />} />
+                    <Route path="/customer/create-ticket" element={<CreateTicket />} />
+                    <Route path="/customer/tickets" element={<ViewAllTickets />} />
+                    <Route path="/customer/tickets/:id" element={<ViewSingleTicket />} />
                 </Route>
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
