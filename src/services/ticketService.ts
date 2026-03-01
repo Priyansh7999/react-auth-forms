@@ -1,15 +1,15 @@
 import type { CreateTicketValues } from "../types/createTicket.js";
 import { getToken } from "../utils/auth.ts";
 const getAuthHeader = () => {
-  const token = getToken();
+    const token = getToken();
 
-  if (!token) {
-    throw new Error("User not authenticated");
-  }
+    if (!token) {
+        throw new Error("User not authenticated");
+    }
 
-  return {
-    Authorization: `Bearer ${token}`,
-  };
+    return {
+        Authorization: `Bearer ${token}`,
+    };
 };
 export const createTicket = async (values: CreateTicketValues) => {
     const response = await fetch(
@@ -29,8 +29,8 @@ export const createTicket = async (values: CreateTicketValues) => {
     }
     return data;
 };
-export const viewAllTickets = async()=>{
-     const response = await fetch(
+export const viewAllTickets = async () => {
+    const response = await fetch(
         `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/tickets`,
         {
             method: 'GET',
@@ -48,7 +48,7 @@ export const viewAllTickets = async()=>{
 
     return data;
 }
-export const viewSingleTicket=async(id:string)=>{
+export const viewSingleTicket = async (id: string) => {
     const response = await fetch(
         `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/tickets/${id}`,
         {
@@ -66,4 +66,26 @@ export const viewSingleTicket=async(id:string)=>{
     }
 
     return data;
+}
+export const updateTicket = async (
+  ticketId: string,
+  payload: {
+    description?: string
+    status?: string
+    priority?: string
+  }) => {
+  const response = await fetch(`${import.meta.env.VITE_BACKEND_SERVER_URL}/api/tickets/${ticketId}`,{
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        ...getAuthHeader()
+      },
+      body: JSON.stringify(payload),
+    }
+  )
+  const data = await response.json()
+  if (!response.ok) {
+    throw new Error(data?.message || "Failed to update ticket")
+  }
+  return data
 }
