@@ -4,3 +4,7 @@ export const getRole=()=>{
 export const getToken=()=>{
     return localStorage.getItem("token");
 }
+export const signOut=()=>{
+    localStorage.removeItem('token')
+    localStorage.removeItem('role')
+}

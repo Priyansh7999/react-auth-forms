@@ -41,7 +41,7 @@ export default function AddComment({ ticketId, onCommentAdd }: CommentProps) {
                     <div className="mt-4 flex justify-center">
                         <button
                             type="submit"
-                            className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 px-5 rounded-lg transition"
+                            className="font-sans bg-black hover:bg-gray-800 text-white py-2 px-4 rounded"
                         >
                             Send
                         </button>

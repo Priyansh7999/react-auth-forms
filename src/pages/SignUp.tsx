@@ -52,7 +52,7 @@ export default function SignUp() {
             <div className="mt-6">
               <button
                 type="submit"
-                className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="font-sans bg-black hover:bg-gray-800 text-white py-2 px-4 rounded"
               >
                 Sign Up
               </button>

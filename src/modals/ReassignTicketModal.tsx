@@ -86,7 +86,7 @@ export default function ReassignTicketModal({ isOpen, onClose, ticketId }: Reass
                         </div>
                         <button
                             type="submit"
-                            className="w-full bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2.5 rounded-xl"
+                            className="font-sans bg-black hover:bg-gray-800 text-white py-2 px-4 rounded"
                         >
                             Assign Ticket
                         </button>

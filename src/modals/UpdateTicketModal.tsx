@@ -4,7 +4,7 @@ import { getRole } from "../utils/auth.ts"
 import { ErrorMessage, Field, Form, Formik } from "formik"
 import { UpdateTicketSchema } from "../schemas/UpdateTicketValidation.tsx"
 import { updateTicket } from "../services/ticketService.ts"
-import type { UpdateTicketRequest, UpdateTicketValues } from "../types/updateTicket.ts"
+import type { UpdateTicketRequest, UpdateTicketValues } from "../types/UpdateTicket.ts"
 
 export default function UpdateTicketModal({ isOpen, onClose, ticket, refresh }: UpdateTicketValues) {
   const role = getRole()
@@ -90,7 +90,7 @@ export default function UpdateTicketModal({ isOpen, onClose, ticket, refresh }: 
             )}
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2.5 rounded-xl"
+              className="font-sans w-full bg-black hover:bg-gray-800 text-white py-2 px-4 rounded"
             >
               Update
             </button>
