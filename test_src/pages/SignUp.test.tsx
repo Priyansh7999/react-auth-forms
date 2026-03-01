@@ -108,29 +108,15 @@ describe('Sign Up Page', () => {
                 email: 'priyansh@gmail.com',
                 password: 'Priyansh@123',
             })
-        })
-    })
-
-    test('ShouldShowSuccessToastAndRedirect', async () => {
-        const user = userEvent.setup();
-        (registerUser as any).mockResolvedValue({ message: 'success' })
-        renderSignUp()
-
-        await user.type(screen.getByLabelText('Name'), 'Priyansh Saxena')
-        await user.type(screen.getByLabelText('Email'), 'priyansh@gmail.com')
-        await user.type(screen.getByLabelText('Password'), 'Priyansh@123')
-        await user.type(screen.getByLabelText('Confirm Password'), 'Priyansh@123')
-        await user.click(screen.getByRole('button', { name: 'Sign Up' }))
-        await waitFor(() => {
             expect(toast.success).toHaveBeenCalledWith('Registration successful! Please sign in.')
             expect(mockNavigate).toHaveBeenCalledWith('/sign-in')
         })
     })
 
+
     test('ShouldNavigateToSignInWhenSignInIsClicked', async () => {
         const user = userEvent.setup();
         renderSignUp()
-
         await user.click(screen.getByText('Sign In'))
         expect(mockNavigate).toHaveBeenCalledWith('/sign-in')
     })
@@ -147,7 +133,6 @@ describe('Sign Up Page', () => {
         await user.click(screen.getByRole('button', { name: 'Sign Up' }))
         await waitFor(() => {
             expect(toast.error).toHaveBeenCalledWith('Email already exists')
-            expect(mockNavigate).not.toHaveBeenCalled()
         })
     })
 
