@@ -5,6 +5,7 @@ export default function HomePage() {
     const navigate = useNavigate()
     const handleSignOut = () => {
         localStorage.removeItem('token')
+        localStorage.removeItem('role')
         navigate('/sign-in')
     }
     return (

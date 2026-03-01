@@ -12,7 +12,10 @@ export default function SideBar() {
       { name: 'Create Ticket', path: '/customer/create-ticket' },
       { name: 'View All Tickets', path: '/customer/tickets' }
     ]
-      : [];
+    : [
+      { name: 'HOME', path: '/agent' },
+      { name: 'View All Tickets', path: '/agent/tickets' }
+    ];
 
   return (
     <div className="h-screen shadow-md p-5">
